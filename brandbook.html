@@ -1,0 +1,2161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BZR Capital Design Manual</title>
+    <meta
+      name="description"
+      content="Premium design system, UI/UX standards, visual language, components, motion, and mobile app guidelines for BZR Capital."
+    />
+    <link rel="icon" href="assets/logo.png" type="image/png" />
+    <style>
+      :root {
+        --ink: #071116;
+        --ink-2: #102a35;
+        --muted: rgba(7, 17, 22, 0.68);
+        --soft: rgba(7, 17, 22, 0.5);
+        --paper: #f7fbfb;
+        --paper-2: #ecf8f7;
+        --cyan: #24d4c3;
+        --cyan-2: #70e4db;
+        --teal: #11aebc;
+        --blue: #1269a7;
+        --navy: #071925;
+        --deep: #041017;
+        --gold: #d9be72;
+        --gold-2: #f0db96;
+        --rose: #e58aa8;
+        --success: #49c78a;
+        --warning: #e3b84f;
+        --danger: #df6d7c;
+        --line: rgba(7, 17, 22, 0.1);
+        --line-strong: rgba(7, 17, 22, 0.16);
+        --glass: rgba(255, 255, 255, 0.3);
+        --glass-strong: rgba(255, 255, 255, 0.48);
+        --shadow: 0 24px 90px rgba(2, 18, 28, 0.16);
+        --shadow-soft: 0 14px 44px rgba(2, 18, 28, 0.1);
+        --font:
+          -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, "Segoe UI",
+          sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 12% 0%, rgba(36, 212, 195, 0.34), transparent 30rem),
+          radial-gradient(circle at 86% 4%, rgba(18, 105, 167, 0.22), transparent 28rem),
+          radial-gradient(circle at 82% 72%, rgba(217, 190, 114, 0.16), transparent 24rem),
+          linear-gradient(180deg, #f8fcfc 0%, #edf8f7 46%, #f8fbfb 100%);
+        font-family: var(--font);
+        letter-spacing: 0;
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        content: "";
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.42) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.48), transparent 72%);
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      code {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        padding: 2px 8px;
+        border: 1px solid rgba(255, 255, 255, 0.52);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.42);
+        color: inherit;
+        font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+        font-size: 0.78rem;
+      }
+
+      .page {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 16px;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 64px;
+        margin: 16px auto 0;
+        padding: 10px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.54);
+        border-radius: 999px;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.66), rgba(255, 255, 255, 0.22)),
+          rgba(255, 255, 255, 0.24);
+        box-shadow: 0 18px 50px rgba(8, 40, 55, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(26px) saturate(180%);
+        -webkit-backdrop-filter: blur(26px) saturate(180%);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .brand img {
+        width: 42px;
+        height: 42px;
+        flex: 0 0 auto;
+        border-radius: 14px;
+        box-shadow: 0 14px 34px rgba(17, 174, 188, 0.22);
+      }
+
+      .brand span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 4px;
+      }
+
+      .nav a {
+        padding: 10px 13px;
+        border-radius: 999px;
+        color: rgba(7, 17, 22, 0.72);
+        font-size: 0.86rem;
+        font-weight: 750;
+        text-decoration: none;
+      }
+
+      .nav a:hover,
+      .nav a:focus-visible {
+        outline: none;
+        color: var(--ink);
+        background: rgba(255, 255, 255, 0.46);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(310px, 0.62fr);
+        gap: 4rem;
+        align-items: center;
+        padding: 6.25rem 0 4.75rem;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 18px;
+        color: rgba(7, 17, 22, 0.62);
+        font-size: 0.78rem;
+        font-weight: 850;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 10px;
+        height: 10px;
+        flex: 0 0 auto;
+        content: "";
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--cyan), var(--gold));
+        box-shadow: 0 0 22px rgba(36, 212, 195, 0.72);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin-bottom: 24px;
+        font-size: 5.6rem;
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        margin-bottom: 16px;
+        font-size: 3.35rem;
+        line-height: 1;
+      }
+
+      h3 {
+        margin-bottom: 10px;
+        font-size: 1.32rem;
+      }
+
+      h4 {
+        margin-bottom: 8px;
+        font-size: 1rem;
+      }
+
+      p {
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      ul {
+        margin: 12px 0 0;
+        padding-left: 1.1rem;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      li + li {
+        margin-top: 5px;
+      }
+
+      .lead {
+        max-width: 720px;
+        font-size: 1.16rem;
+      }
+
+      .glass {
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.56);
+        border-radius: 30px;
+        background:
+          linear-gradient(140deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.18)),
+          var(--glass);
+        box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.74);
+        overflow: hidden;
+        backdrop-filter: blur(28px) saturate(170%);
+        -webkit-backdrop-filter: blur(28px) saturate(170%);
+      }
+
+      .glass::before {
+        position: absolute;
+        inset: 0;
+        content: "";
+        background:
+          radial-gradient(circle at 16% 0%, rgba(255, 255, 255, 0.78), transparent 9rem),
+          linear-gradient(120deg, rgba(255, 255, 255, 0.44), transparent 44%);
+        opacity: 0.64;
+        pointer-events: none;
+      }
+
+      .glass > * {
+        position: relative;
+      }
+
+      .identity-card {
+        padding: 28px;
+      }
+
+      .identity-logo {
+        width: 132px;
+        height: 132px;
+        margin-bottom: 28px;
+        border-radius: 32px;
+        box-shadow: 0 24px 60px rgba(17, 174, 188, 0.22);
+      }
+
+      .manual-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 24px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 34px;
+        padding: 0 12px;
+        border: 1px solid rgba(255, 255, 255, 0.52);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.34);
+        color: rgba(7, 17, 22, 0.72);
+        font-size: 0.84rem;
+        font-weight: 760;
+      }
+
+      .section {
+        padding: 5rem 0;
+        border-top: 1px solid rgba(7, 17, 22, 0.08);
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: minmax(0, 0.74fr) minmax(280px, 0.58fr);
+        gap: 3rem;
+        align-items: end;
+        margin-bottom: 2rem;
+      }
+
+      .section-note {
+        color: var(--soft);
+        font-size: 0.95rem;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        display: grid;
+        gap: 14px;
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .card {
+        min-height: 220px;
+        padding: 24px;
+      }
+
+      .compact {
+        min-height: 0;
+      }
+
+      .number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        margin-bottom: 30px;
+        border-radius: 14px;
+        color: #073137;
+        background: linear-gradient(135deg, rgba(36, 212, 195, 0.76), rgba(217, 190, 114, 0.68));
+        font-weight: 850;
+      }
+
+      .contents-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .contents-grid a {
+        min-height: 116px;
+        padding: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.34);
+        color: inherit;
+        text-decoration: none;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .contents-grid span {
+        display: block;
+        margin-bottom: 18px;
+        color: var(--soft);
+        font-size: 0.78rem;
+        font-weight: 850;
+      }
+
+      .contents-grid strong {
+        display: block;
+        font-size: 1.05rem;
+      }
+
+      .swatch {
+        min-height: 184px;
+        padding: 18px;
+        border-radius: 24px;
+        color: #071116;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.52);
+      }
+
+      .swatch.dark {
+        color: #f8ffff;
+      }
+
+      .swatch strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .swatch span {
+        min-height: 42px;
+        color: currentColor;
+        opacity: 0.76;
+        line-height: 1.45;
+      }
+
+      .spec {
+        padding: 22px;
+        border: 1px solid rgba(7, 17, 22, 0.08);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.42);
+      }
+
+      .spec strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .small {
+        color: var(--soft);
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .rule-list {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .rule-list li {
+        display: grid;
+        grid-template-columns: 34px 1fr;
+        gap: 12px;
+        align-items: start;
+        margin: 0;
+        padding: 14px;
+        border: 1px solid rgba(7, 17, 22, 0.08);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.36);
+        color: var(--muted);
+      }
+
+      .rule-list b {
+        color: var(--ink);
+      }
+
+      .dot {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(36, 212, 195, 0.74), rgba(217, 190, 114, 0.55));
+        color: var(--ink);
+        font-weight: 860;
+      }
+
+      .logo-stage {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .logo-tile {
+        min-height: 230px;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        border-radius: 28px;
+        background:
+          radial-gradient(circle at 16% 8%, rgba(36, 212, 195, 0.28), transparent 12rem),
+          rgba(255, 255, 255, 0.38);
+      }
+
+      .logo-tile.dark {
+        background:
+          radial-gradient(circle at 70% 12%, rgba(36, 212, 195, 0.26), transparent 12rem),
+          linear-gradient(135deg, var(--navy), #0b2d3a);
+      }
+
+      .logo-tile img {
+        width: 132px;
+        height: 132px;
+        border-radius: 32px;
+      }
+
+      .clearspace-demo {
+        position: relative;
+        display: grid;
+        place-items: center;
+        min-height: 250px;
+        border: 1px dashed rgba(7, 17, 22, 0.18);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .clearspace-demo::before {
+        width: 196px;
+        height: 196px;
+        content: "";
+        border: 1px dashed rgba(217, 190, 114, 0.8);
+        border-radius: 38px;
+        background: rgba(217, 190, 114, 0.08);
+      }
+
+      .clearspace-demo img {
+        position: absolute;
+        width: 108px;
+        height: 108px;
+        border-radius: 28px;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        border: 1px solid rgba(7, 17, 22, 0.08);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.38);
+      }
+
+      table {
+        width: 100%;
+        min-width: 760px;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 16px 18px;
+        border-bottom: 1px solid rgba(7, 17, 22, 0.08);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        color: rgba(7, 17, 22, 0.58);
+        font-size: 0.78rem;
+        font-weight: 850;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      tr:last-child td {
+        border-bottom: 0;
+      }
+
+      td {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      td strong {
+        color: var(--ink);
+      }
+
+      .type-card {
+        padding: 3rem;
+      }
+
+      .display-type {
+        margin: 0 0 16px;
+        font-size: 5.8rem;
+        line-height: 0.92;
+        letter-spacing: 0;
+      }
+
+      .type-scale {
+        display: grid;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .type-row {
+        display: grid;
+        grid-template-columns: 140px 1fr 160px;
+        gap: 20px;
+        align-items: baseline;
+        padding: 14px 0;
+        border-top: 1px solid rgba(7, 17, 22, 0.08);
+      }
+
+      .type-row span {
+        color: rgba(7, 17, 22, 0.55);
+        font-size: 0.9rem;
+        font-weight: 750;
+      }
+
+      .type-row p {
+        margin-bottom: 0;
+      }
+
+      .money {
+        font-variant-numeric: tabular-nums;
+      }
+
+      .layout-box {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 8px;
+        min-height: 180px;
+        padding: 16px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.36);
+      }
+
+      .layout-box span {
+        min-height: 34px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(36, 212, 195, 0.3), rgba(217, 190, 114, 0.16));
+      }
+
+      .surface-demo {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .surface {
+        min-height: 280px;
+        padding: 22px;
+        border-radius: 28px;
+        overflow: hidden;
+      }
+
+      .surface.light {
+        background:
+          radial-gradient(circle at 20% 12%, rgba(36, 212, 195, 0.22), transparent 11rem),
+          linear-gradient(135deg, #f7fbfb, #eaf6f7);
+      }
+
+      .surface.dark {
+        color: #f8ffff;
+        background:
+          radial-gradient(circle at 20% 12%, rgba(36, 212, 195, 0.26), transparent 11rem),
+          linear-gradient(135deg, #071116, #0b2631);
+      }
+
+      .surface.dark p,
+      .surface.dark li {
+        color: rgba(248, 255, 255, 0.68);
+      }
+
+      .layer-stack {
+        display: grid;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .layer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.48);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.34);
+        color: var(--muted);
+      }
+
+      .component-demo {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        margin-top: 16px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 18px;
+        border: 1px solid rgba(255, 255, 255, 0.54);
+        border-radius: 999px;
+        background: linear-gradient(135deg, rgba(36, 212, 195, 0.82), rgba(217, 190, 114, 0.78));
+        color: #071116;
+        font-weight: 820;
+        text-decoration: none;
+        box-shadow: 0 12px 28px rgba(17, 174, 188, 0.18);
+      }
+
+      .button.secondary {
+        background: rgba(255, 255, 255, 0.35);
+      }
+
+      .button.disabled {
+        opacity: 0.48;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        min-height: 34px;
+        padding: 0 12px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.32);
+        color: rgba(7, 17, 22, 0.74);
+        font-size: 0.84rem;
+        font-weight: 750;
+      }
+
+      .chip.success {
+        background: rgba(73, 199, 138, 0.16);
+        color: #17643f;
+      }
+
+      .chip.warning {
+        background: rgba(227, 184, 79, 0.2);
+        color: #72571b;
+      }
+
+      .chip.danger {
+        background: rgba(223, 109, 124, 0.16);
+        color: #7c2532;
+      }
+
+      .field {
+        width: 100%;
+        min-height: 52px;
+        padding: 0 16px;
+        border: 1px solid rgba(255, 255, 255, 0.58);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.42);
+        color: var(--ink);
+        font: inherit;
+      }
+
+      .segmented {
+        display: inline-grid;
+        grid-template-columns: repeat(3, minmax(80px, 1fr));
+        gap: 4px;
+        padding: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .segmented span {
+        min-height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        color: var(--soft);
+        font-size: 0.86rem;
+        font-weight: 780;
+      }
+
+      .segmented .active {
+        color: var(--ink);
+        background: rgba(255, 255, 255, 0.64);
+        box-shadow: 0 8px 22px rgba(2, 18, 28, 0.1);
+      }
+
+      .score-ring {
+        width: 122px;
+        height: 122px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle, rgba(255, 255, 255, 0.86) 0 53%, transparent 54%),
+          conic-gradient(var(--cyan) 0 73%, rgba(7, 17, 22, 0.08) 73% 100%);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.54);
+      }
+
+      .score-ring strong {
+        font-size: 1.75rem;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .phone-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .phone-preview {
+        padding: 18px;
+      }
+
+      .phone-frame {
+        width: min(320px, 100%);
+        aspect-ratio: 0.54;
+        margin: 0 auto;
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        border-radius: 44px;
+        background: linear-gradient(140deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.18));
+        box-shadow: 0 28px 80px rgba(2, 18, 28, 0.22);
+        overflow: hidden;
+      }
+
+      .phone-frame img {
+        width: 100%;
+        height: 100%;
+        border-radius: 34px;
+        object-fit: cover;
+        object-position: top center;
+      }
+
+      .usecase-card {
+        min-height: 280px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .usecase-card .component-demo {
+        margin-top: auto;
+      }
+
+      .anatomy {
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 16px;
+        align-items: stretch;
+      }
+
+      .screen-wire {
+        min-height: 520px;
+        padding: 18px;
+        border-radius: 34px;
+        background:
+          radial-gradient(circle at 50% 0%, rgba(36, 212, 195, 0.24), transparent 13rem),
+          linear-gradient(180deg, #0a1720, #061015);
+        color: #f8ffff;
+        box-shadow: 0 24px 70px rgba(2, 18, 28, 0.18);
+      }
+
+      .wire-row,
+      .wire-card,
+      .wire-button,
+      .wire-nav {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .wire-row {
+        height: 46px;
+        margin-bottom: 14px;
+        border-radius: 18px;
+      }
+
+      .wire-card {
+        min-height: 130px;
+        margin-bottom: 12px;
+        padding: 16px;
+        border-radius: 24px;
+      }
+
+      .wire-line {
+        height: 12px;
+        max-width: 72%;
+        margin-bottom: 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .wire-line.short {
+        max-width: 42%;
+      }
+
+      .wire-button {
+        height: 48px;
+        margin-top: 16px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--cyan), var(--gold));
+      }
+
+      .wire-nav {
+        height: 58px;
+        margin-top: 18px;
+        border-radius: 24px;
+      }
+
+      .motion-strip {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .motion-step {
+        min-height: 174px;
+        padding: 18px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.42);
+      }
+
+      .motion-dot {
+        width: 52px;
+        height: 52px;
+        margin-bottom: 24px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, rgba(36, 212, 195, 0.8), rgba(217, 190, 114, 0.72));
+        box-shadow: 0 0 34px rgba(36, 212, 195, 0.38);
+      }
+
+      .do-dont {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .do,
+      .dont {
+        padding: 22px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.4);
+      }
+
+      .do strong {
+        color: #17643f;
+      }
+
+      .dont strong {
+        color: #7c2532;
+      }
+
+      .qa-list {
+        columns: 2;
+        column-gap: 3rem;
+        padding-left: 1.2rem;
+      }
+
+      .footer {
+        padding: 4rem 0 5rem;
+        color: rgba(7, 17, 22, 0.58);
+      }
+
+      @media (max-width: 1100px) {
+        h1 {
+          font-size: 4.6rem;
+        }
+
+        h2 {
+          font-size: 2.75rem;
+        }
+
+        .hero {
+          gap: 3rem;
+        }
+
+        .contents-grid,
+        .grid-4,
+        .motion-strip {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 880px) {
+        .hero,
+        .section-head,
+        .surface-demo,
+        .phone-grid,
+        .anatomy,
+        .logo-stage,
+        .do-dont {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          padding: 4rem 0 3.5rem;
+        }
+
+        .grid-3,
+        .grid-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .nav {
+          display: none;
+        }
+
+        .section {
+          padding: 4rem 0;
+        }
+
+        .type-row {
+          grid-template-columns: 120px 1fr;
+        }
+
+        .type-row span:last-child {
+          grid-column: 2;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 24px, 1180px);
+        }
+
+        .topbar {
+          top: 10px;
+          min-height: 58px;
+          padding: 9px 10px;
+        }
+
+        .brand img {
+          width: 36px;
+          height: 36px;
+          border-radius: 12px;
+        }
+
+        .brand span {
+          max-width: 230px;
+        }
+
+        h1 {
+          font-size: 3.35rem;
+          line-height: 0.96;
+        }
+
+        h2 {
+          font-size: 2.25rem;
+        }
+
+        .lead {
+          font-size: 1.04rem;
+        }
+
+        .grid-4,
+        .grid-3,
+        .grid-2,
+        .contents-grid,
+        .motion-strip {
+          grid-template-columns: 1fr;
+        }
+
+        .identity-logo {
+          width: 104px;
+          height: 104px;
+          border-radius: 26px;
+        }
+
+        .type-card {
+          padding: 1.6rem;
+        }
+
+        .display-type {
+          font-size: 3.2rem;
+        }
+
+        .type-row {
+          grid-template-columns: 1fr;
+          gap: 6px;
+        }
+
+        .type-row span:last-child {
+          grid-column: auto;
+        }
+
+        .segmented {
+          width: 100%;
+          grid-template-columns: 1fr;
+          border-radius: 24px;
+        }
+
+        .qa-list {
+          columns: 1;
+        }
+
+        table {
+          min-width: 680px;
+        }
+      }
+
+      @media print {
+        body {
+          background: #fff;
+        }
+
+        .topbar {
+          position: static;
+        }
+
+        .section {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar page">
+      <a class="brand" href="#top" aria-label="BZR Capital design manual home">
+        <img src="assets/logo.png" alt="BZR Capital logo" />
+        <span>BZR Design Manual</span>
+      </a>
+      <nav class="nav" aria-label="Design manual sections">
+        <a href="#foundations">Foundations</a>
+        <a href="#identity">Identity</a>
+        <a href="#ui">UI System</a>
+        <a href="#app">App UX</a>
+        <a href="#motion">Motion</a>
+        <a href="#standards">Standards</a>
+      </nav>
+    </header>
+
+    <main id="top" class="page">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">BZR Capital Design Manual v1.0</p>
+          <h1>UI/UX standards for a premium liquid-glass financial interface.</h1>
+          <p class="lead">
+            This document is a design system reference. It defines visual language, component
+            behavior, responsive layout, motion, app screen patterns, accessibility, and quality
+            rules for every BZR digital surface.
+          </p>
+          <div class="manual-meta" aria-label="Manual scope">
+            <span class="pill">Visual identity</span>
+            <span class="pill">UI components</span>
+            <span class="pill">Mobile UX</span>
+            <span class="pill">Motion</span>
+            <span class="pill">Accessibility</span>
+          </div>
+        </div>
+        <aside class="glass identity-card">
+          <img class="identity-logo" src="assets/logo.png" alt="BZR Capital mark" />
+          <h2>BZR Capital</h2>
+          <p>
+            The interface should feel native, luminous, exact, and calm. Design decisions should
+            make money, status, risk, and next actions easier to read.
+          </p>
+          <div class="component-demo">
+            <span class="chip">System font</span>
+            <span class="chip">Cyan glass</span>
+            <span class="chip">Measured gold</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Contents</p>
+            <h2>What this manual controls</h2>
+          </div>
+          <p>
+            Use this as the source of truth for design decisions. Product teams can extend
+            patterns, but new styles must map back to the tokens, components, and interaction
+            principles documented here.
+          </p>
+        </div>
+        <div class="contents-grid">
+          <a href="#foundations"><span>01</span><strong>Design foundations</strong></a>
+          <a href="#identity"><span>02</span><strong>Logo and identity</strong></a>
+          <a href="#color"><span>03</span><strong>Color and type</strong></a>
+          <a href="#layout"><span>04</span><strong>Layout system</strong></a>
+          <a href="#ui"><span>05</span><strong>Liquid glass UI</strong></a>
+          <a href="#components"><span>06</span><strong>Components</strong></a>
+          <a href="#app"><span>07</span><strong>Mobile app UX</strong></a>
+          <a href="#standards"><span>08</span><strong>Quality standards</strong></a>
+        </div>
+      </section>
+
+      <section class="section" id="foundations">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Foundations</p>
+            <h2>Design principles</h2>
+          </div>
+          <p>
+            These principles are about interface quality, not campaign language. They should be
+            visible in layout, typography, component states, motion, and screen architecture.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="glass card">
+            <span class="number">01</span>
+            <h3>Native clarity</h3>
+            <p>
+              Screens should feel close to the operating system: direct, readable, immediate, and
+              free of decorative friction.
+            </p>
+          </article>
+          <article class="glass card">
+            <span class="number">02</span>
+            <h3>Data before decoration</h3>
+            <p>
+              Amounts, score, due dates, eligibility, and state labels are always more important
+              than visual effects.
+            </p>
+          </article>
+          <article class="glass card">
+            <span class="number">03</span>
+            <h3>Glass with purpose</h3>
+            <p>
+              Use glass to separate layers and focus attention. Do not place long text, tables, or
+              legal content on weak transparent surfaces.
+            </p>
+          </article>
+          <article class="glass card">
+            <span class="number">04</span>
+            <h3>Quiet confidence</h3>
+            <p>
+              Prefer restraint: fewer colors, larger spacing, exact labels, controlled contrast,
+              and calm confirmations.
+            </p>
+          </article>
+          <article class="glass card">
+            <span class="number">05</span>
+            <h3>Motion as feedback</h3>
+            <p>
+              Animation should reveal structure, confirm actions, and express intelligence without
+              changing layout width or distracting from decisions.
+            </p>
+          </article>
+          <article class="glass card">
+            <span class="number">06</span>
+            <h3>Accessible luxury</h3>
+            <p>
+              Premium design must still be readable, keyboard reachable, touch safe, and clear in
+              light mode, dark mode, and reduced motion.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Personality</p>
+            <h2>Visual attributes</h2>
+          </div>
+          <p>
+            The brand should not become flashy or overly playful. The right visual attitude is
+            technical, clean, luminous, and warm only at controlled accent points.
+          </p>
+        </div>
+        <div class="grid-4">
+          <article class="spec">
+            <strong>Luminous</strong>
+            <p>Soft cyan light, clear surfaces, and subtle highlights that suggest speed and precision.</p>
+          </article>
+          <article class="spec">
+            <strong>Measured</strong>
+            <p>Gold appears in small amounts for value, achievement, and premium selection states.</p>
+          </article>
+          <article class="spec">
+            <strong>Exact</strong>
+            <p>Numbers align, states are explicit, and controls maintain stable dimensions.</p>
+          </article>
+          <article class="spec">
+            <strong>Calm</strong>
+            <p>Whitespace, predictable grids, restrained shadows, and no constantly moving calls to action.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="identity">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Logo system</p>
+            <h2>Mark usage standards</h2>
+          </div>
+          <p>
+            The mark is a trust anchor. Use it cleanly and consistently. It should never compete
+            with hero type, app data, or primary actions.
+          </p>
+        </div>
+        <div class="logo-stage">
+          <div class="logo-tile">
+            <img src="assets/logo.png" alt="BZR logo on light glass" />
+          </div>
+          <div class="logo-tile dark">
+            <img src="assets/logo.png" alt="BZR logo on dark surface" />
+          </div>
+        </div>
+        <div style="height: 18px"></div>
+        <div class="grid-3">
+          <article class="glass card compact">
+            <h3>Clear space</h3>
+            <p>
+              Keep at least one symbol-width around the logo. In dense navigation, the icon can
+              stand alone if the product name is nearby.
+            </p>
+          </article>
+          <article class="glass card compact">
+            <h3>Minimum size</h3>
+            <p>
+              App icon in header: 32px minimum. Website navigation: 40px. Brand display: 96px or
+              larger. Never render the mark blurry.
+            </p>
+          </article>
+          <article class="glass card compact">
+            <h3>Backgrounds</h3>
+            <p>
+              Preferred backgrounds are white glass, cyan gradient, deep navy, or screenshot
+              surfaces with a clear scrim behind the mark.
+            </p>
+          </article>
+        </div>
+        <div style="height: 18px"></div>
+        <div class="grid-2">
+          <div class="glass card compact">
+            <h3>Clearspace model</h3>
+            <div class="clearspace-demo">
+              <img src="assets/logo.png" alt="BZR logo clearspace model" />
+            </div>
+          </div>
+          <div class="glass card compact">
+            <h3>Incorrect usage</h3>
+            <ul class="rule-list">
+              <li><span class="dot">x</span><span><b>Do not stretch</b> the symbol or force it into wide containers.</span></li>
+              <li><span class="dot">x</span><span><b>Do not recolor</b> the white mark with random gradients or unapproved tints.</span></li>
+              <li><span class="dot">x</span><span><b>Do not rotate</b>, tilt, outline, emboss, or add heavy drop shadows.</span></li>
+              <li><span class="dot">x</span><span><b>Do not crowd</b> the mark with badges, status chips, or promotional labels.</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="color">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Color system</p>
+            <h2>Functional color roles</h2>
+          </div>
+          <p>
+            Color is a UI system, not decoration. Cyan handles brand presence and active states.
+            Navy creates trust and contrast. Gold is rare and premium. Rose is only a small warmth
+            accent.
+          </p>
+        </div>
+        <div class="grid-3">
+          <div class="swatch" style="background: #24d4c3">
+            <strong>BZR Cyan</strong>
+            <span>Primary brand, active states, focus glow</span>
+            <code>#24D4C3</code>
+          </div>
+          <div class="swatch dark" style="background: #1269a7">
+            <strong>Trust Blue</strong>
+            <span>Technical depth, AI surfaces, gradient base</span>
+            <code>#1269A7</code>
+          </div>
+          <div class="swatch dark" style="background: #071925">
+            <strong>Financial Navy</strong>
+            <span>Dark mode, app chrome, contrast base</span>
+            <code>#071925</code>
+          </div>
+          <div class="swatch" style="background: #d9be72">
+            <strong>Measured Gold</strong>
+            <span>Premium signal, score emphasis, selected value</span>
+            <code>#D9BE72</code>
+          </div>
+          <div class="swatch" style="background: #e58aa8">
+            <strong>Soft Rose</strong>
+            <span>Rare warmth, gradient balance, small highlights</span>
+            <code>#E58AA8</code>
+          </div>
+          <div class="swatch" style="background: #f7fbfb">
+            <strong>Glass Paper</strong>
+            <span>Light surfaces, page background, cards</span>
+            <code>#F7FBFB</code>
+          </div>
+        </div>
+        <div style="height: 18px"></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Role</th>
+                <th>Token</th>
+                <th>Usage</th>
+                <th>Constraint</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Primary action</strong></td>
+                <td><code>--cyan</code> + <code>--gold</code></td>
+                <td>High-confidence buttons, active progress, selected payment amount.</td>
+                <td>One primary action per view.</td>
+              </tr>
+              <tr>
+                <td><strong>Focus ring</strong></td>
+                <td><code>--cyan-2</code></td>
+                <td>Keyboard focus, selected tab, active input state.</td>
+                <td>Must pass contrast against glass.</td>
+              </tr>
+              <tr>
+                <td><strong>Premium accent</strong></td>
+                <td><code>--gold</code></td>
+                <td>Score improvement, premium tier, high-value metric accent.</td>
+                <td>Use below 5 percent of a screen.</td>
+              </tr>
+              <tr>
+                <td><strong>Risk state</strong></td>
+                <td><code>--warning</code> / <code>--danger</code></td>
+                <td>Late payment, invalid input, destructive action, review warning.</td>
+                <td>Pair with text and icon, never color alone.</td>
+              </tr>
+              <tr>
+                <td><strong>Surface</strong></td>
+                <td><code>--glass</code> / <code>--paper</code></td>
+                <td>Cards, navigation, bottom sheets, modular panels.</td>
+                <td>Strengthen opacity behind small text.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="height: 18px"></div>
+        <div class="grid-3">
+          <div class="spec">
+            <strong>Color ratio</strong>
+            <p>70 percent neutral glass, 20 percent cyan or blue, 8 percent gradient, 2 percent gold or rose.</p>
+          </div>
+          <div class="spec">
+            <strong>Gradient rule</strong>
+            <p>Use at most two dominant brand colors with one small gold highlight. Avoid rainbow effects.</p>
+          </div>
+          <div class="spec">
+            <strong>Dark mode</strong>
+            <p>Use navy instead of pure black. Reduce white opacity, increase border contrast, preserve cyan glow.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Typography</p>
+            <h2>System type and numeric hierarchy</h2>
+          </div>
+          <p>
+            Use the platform font stack to feel native on Apple devices while remaining reliable on
+            web and Android. The type system must support Cyrillic, English, and tabular financial
+            numerals.
+          </p>
+        </div>
+        <div class="glass type-card">
+          <p class="eyebrow">Specimen</p>
+          <p class="display-type">BZR Capital Design System</p>
+          <p>
+            Font stack: <code>-apple-system</code>, <code>SF Pro Display</code>,
+            <code>SF Pro Text</code>, <code>Inter</code>, platform fallbacks. Letter spacing is 0
+            for normal text. Tracking is allowed only for compact labels.
+          </p>
+          <div class="type-scale">
+            <div class="type-row">
+              <span>Display</span>
+              <strong style="font-size: 3rem; line-height: 1">Premium interface title</strong>
+              <span>56-72px web</span>
+            </div>
+            <div class="type-row">
+              <span>Section</span>
+              <strong style="font-size: 2rem; line-height: 1.08">Screen group heading</strong>
+              <span>32-44px web</span>
+            </div>
+            <div class="type-row">
+              <span>Body</span>
+              <p>Use short paragraphs, 1.45 to 1.7 line height, and high contrast over glass.</p>
+              <span>16-18px</span>
+            </div>
+            <div class="type-row">
+              <span>UI label</span>
+              <strong style="font-size: 0.8rem; letter-spacing: 0.11em; text-transform: uppercase">
+                Available limit
+              </strong>
+              <span>12-13px</span>
+            </div>
+            <div class="type-row">
+              <span>Numbers</span>
+              <strong class="money" style="font-size: 2.4rem; line-height: 1">₮ 2,480,500</strong>
+              <span>Tabular</span>
+            </div>
+          </div>
+        </div>
+        <div style="height: 18px"></div>
+        <div class="grid-3">
+          <article class="spec">
+            <strong>Hierarchy</strong>
+            <p>One display headline per page. One primary value per mobile screen. Secondary values use smaller weight.</p>
+          </article>
+          <article class="spec">
+            <strong>Cyrillic</strong>
+            <p>Avoid long uppercase Cyrillic phrases. Use title case or sentence case for readability.</p>
+          </article>
+          <article class="spec">
+            <strong>Financial numbers</strong>
+            <p>Use tabular numerals for money, scores, percentages, repayments, dates, and animated counters.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="layout">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Layout</p>
+            <h2>Grid, spacing, and responsive rules</h2>
+          </div>
+          <p>
+            Layout should make the interface feel organized before any visual effect is added. Use
+            stable dimensions and responsive rules for mobile, tablet, and desktop.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="glass card">
+            <h3>Desktop web</h3>
+            <p>Container: 1120-1180px. Use 12 columns, 24px gutters, and compact hero height.</p>
+            <div class="layout-box">
+              <span style="grid-column: span 4"></span>
+              <span style="grid-column: span 4"></span>
+              <span style="grid-column: span 4"></span>
+              <span style="grid-column: span 7"></span>
+              <span style="grid-column: span 5"></span>
+            </div>
+          </article>
+          <article class="glass card">
+            <h3>Tablet</h3>
+            <p>Use 24-32px gutters, 2-column content, fewer stacked cards, and tighter vertical rhythm.</p>
+            <div class="layout-box">
+              <span style="grid-column: span 5"></span>
+              <span style="grid-column: span 7"></span>
+              <span style="grid-column: span 6"></span>
+              <span style="grid-column: span 6"></span>
+            </div>
+          </article>
+          <article class="glass card">
+            <h3>Mobile</h3>
+            <p>Use 16px gutters, 8px micro spacing, 12-16px component gaps, and 44px touch targets.</p>
+            <div class="layout-box">
+              <span style="grid-column: span 12"></span>
+              <span style="grid-column: span 12"></span>
+              <span style="grid-column: span 6"></span>
+              <span style="grid-column: span 6"></span>
+            </div>
+          </article>
+        </div>
+        <div style="height: 18px"></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Breakpoint</th>
+                <th>Gutter</th>
+                <th>Grid</th>
+                <th>Design rule</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>320-430 mobile</strong></td>
+                <td>16px</td>
+                <td>Single column</td>
+                <td>Primary action must be thumb reachable. Avoid side-by-side cards except tiny controls.</td>
+              </tr>
+              <tr>
+                <td><strong>768-1024 tablet</strong></td>
+                <td>24-32px</td>
+                <td>2 columns</td>
+                <td>Do not simply scale desktop. Reduce card count per row and increase content density carefully.</td>
+              </tr>
+              <tr>
+                <td><strong>1180+ desktop</strong></td>
+                <td>32px</td>
+                <td>12 columns</td>
+                <td>Keep hero and data panels readable. Avoid stretched cards and oversized text blocks.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="ui">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Liquid glass material</p>
+            <h2>Surface standards</h2>
+          </div>
+          <p>
+            Glass is the signature material. It should create depth, separation, and focus without
+            hurting readability. Use stronger surfaces for dense data and weaker surfaces for
+            decorative background layers.
+          </p>
+        </div>
+        <div class="surface-demo">
+          <div class="surface light">
+            <div class="glass card compact">
+              <h3>Light glass</h3>
+              <p>White transparency, soft border, inner highlight, subtle shadow, and readable dark text.</p>
+              <div class="layer-stack">
+                <div class="layer"><strong>Background</strong><span>Gradient or screenshot</span></div>
+                <div class="layer"><strong>Glass panel</strong><span>28px blur, 30-48% fill</span></div>
+                <div class="layer"><strong>Content</strong><span>High-contrast text</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="surface dark">
+            <div class="glass card compact" style="background: rgba(255, 255, 255, 0.08); color: #f8ffff">
+              <h3>Dark glass</h3>
+              <p>
+                Lower white opacity, stronger border, subtle cyan glow, and no pure black surfaces.
+              </p>
+              <div class="component-demo">
+                <span class="chip" style="color: #f8ffff; background: rgba(255, 255, 255, 0.1)">Verified</span>
+                <span class="chip" style="color: #f8ffff; background: rgba(255, 255, 255, 0.1)">Score 742</span>
+                <span class="chip" style="color: #f8ffff; background: rgba(255, 255, 255, 0.1)">Safe area</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="height: 20px"></div>
+        <div class="grid-4">
+          <div class="spec">
+            <strong>Blur</strong>
+            <p>18px for compact controls, 22px for cards, 28px for navigation or hero glass.</p>
+          </div>
+          <div class="spec">
+            <strong>Fill opacity</strong>
+            <p>Light: 30-58 percent white. Dark: 6-14 percent white with stronger border.</p>
+          </div>
+          <div class="spec">
+            <strong>Border</strong>
+            <p>1px alpha border with a brighter top edge. Increase contrast over imagery.</p>
+          </div>
+          <div class="spec">
+            <strong>Shadow</strong>
+            <p>Large, soft, low-opacity shadow. Never use hard black outlines or heavy glow.</p>
+          </div>
+        </div>
+        <div style="height: 18px"></div>
+        <div class="do-dont">
+          <div class="do">
+            <strong>Use glass for</strong>
+            <ul>
+              <li>Navigation bars and bottom sheets</li>
+              <li>Primary data cards and score panels</li>
+              <li>Focused controls, modals, and overlays</li>
+              <li>Hero screenshot framing</li>
+            </ul>
+          </div>
+          <div class="dont">
+            <strong>Avoid glass for</strong>
+            <ul>
+              <li>Long legal text or dense tables</li>
+              <li>Low-contrast copy over busy images</li>
+              <li>Every single component on a screen</li>
+              <li>Animated backgrounds that change page width</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="components">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Components</p>
+            <h2>Reusable interface patterns</h2>
+          </div>
+          <p>
+            Components should be familiar, touch-friendly, and stable. Every component needs
+            default, hover, focus, active, loading, disabled, success, warning, and error states
+            when applicable.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="glass card">
+            <h3>Buttons</h3>
+            <p>Primary actions use cyan-gold. Secondary actions use glass. Destructive actions use text plus red state.</p>
+            <div class="component-demo">
+              <a class="button" href="#">Primary</a>
+              <a class="button secondary" href="#">Secondary</a>
+              <span class="button disabled">Disabled</span>
+            </div>
+          </article>
+          <article class="glass card">
+            <h3>Inputs</h3>
+            <p>Inputs use visible labels, strong focus rings, helper text, and clear error messages.</p>
+            <input class="field" value="you@company.mn" aria-label="Example email field" />
+          </article>
+          <article class="glass card">
+            <h3>Status chips</h3>
+            <p>Chips communicate small states. They never replace full explanations for important decisions.</p>
+            <div class="component-demo">
+              <span class="chip success">Verified</span>
+              <span class="chip warning">Due soon</span>
+              <span class="chip danger">Action needed</span>
+            </div>
+          </article>
+          <article class="glass card">
+            <h3>Segmented controls</h3>
+            <p>Use for 2-4 mutually exclusive modes. Do not use tabs when the content is unrelated.</p>
+            <div class="component-demo">
+              <div class="segmented" aria-label="Example segmented control">
+                <span class="active">Day</span>
+                <span>Month</span>
+                <span>Year</span>
+              </div>
+            </div>
+          </article>
+          <article class="glass card">
+            <h3>Score modules</h3>
+            <p>Show the value, category, top factors, and next action. Use motion only on entry.</p>
+            <div class="component-demo">
+              <div class="score-ring"><strong>742</strong></div>
+              <span class="chip">Good</span>
+            </div>
+          </article>
+          <article class="glass card">
+            <h3>Cards</h3>
+            <p>Cards need one job: summarize, compare, select, or open detail. Do not nest cards inside cards.</p>
+            <div class="component-demo">
+              <span class="pill">Summary</span>
+              <span class="pill">Selector</span>
+              <span class="pill">Detail</span>
+            </div>
+          </article>
+        </div>
+        <div style="height: 18px"></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th>Anatomy</th>
+                <th>Required states</th>
+                <th>UX rule</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Primary button</strong></td>
+                <td>Label, optional icon, gradient fill, focus ring.</td>
+                <td>Default, hover, focus, pressed, loading, disabled.</td>
+                <td>One per view or modal. Button text must name the action.</td>
+              </tr>
+              <tr>
+                <td><strong>Amount card</strong></td>
+                <td>Amount, term, fee, eligibility state, selection mark.</td>
+                <td>Available, selected, unavailable, loading, error.</td>
+                <td>Never hide repayment detail behind decoration.</td>
+              </tr>
+              <tr>
+                <td><strong>Bottom sheet</strong></td>
+                <td>Handle, title, content, sticky action, safe-area padding.</td>
+                <td>Collapsed, expanded, loading, error, success.</td>
+                <td>Useful for confirmation, filters, and short forms only.</td>
+              </tr>
+              <tr>
+                <td><strong>Toast</strong></td>
+                <td>Icon, short message, optional action.</td>
+                <td>Success, warning, error, offline.</td>
+                <td>Do not use toast for legally important information.</td>
+              </tr>
+              <tr>
+                <td><strong>Skeleton</strong></td>
+                <td>Stable placeholder blocks matching final layout.</td>
+                <td>Loading, delayed, failed.</td>
+                <td>Skeleton must not shift when real content appears.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="app">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Mobile app UX</p>
+            <h2>Screen architecture standards</h2>
+          </div>
+          <p>
+            Mobile UI should answer: where am I, what is my current state, what can I do next, and
+            what happens if I continue. Use the screenshots as visual references for density,
+            color, and top-cropped phone framing.
+          </p>
+        </div>
+        <div class="phone-grid">
+          <div class="glass phone-preview">
+            <div class="phone-frame">
+              <img src="assets/ss_light.png" alt="BZR light app screenshot" />
+            </div>
+          </div>
+          <div class="glass phone-preview">
+            <div class="phone-frame">
+              <img src="assets/ss_dark.png" alt="BZR dark app screenshot" />
+            </div>
+          </div>
+        </div>
+        <div style="height: 20px"></div>
+        <div class="anatomy">
+          <div class="screen-wire" aria-label="Mobile screen anatomy diagram">
+            <div class="wire-row"></div>
+            <div class="wire-card">
+              <div class="wire-line"></div>
+              <div class="wire-line short"></div>
+              <div class="wire-button"></div>
+            </div>
+            <div class="wire-card">
+              <div class="wire-line"></div>
+              <div class="wire-line"></div>
+              <div class="wire-line short"></div>
+            </div>
+            <div class="wire-card">
+              <div class="wire-line short"></div>
+              <div class="wire-line"></div>
+            </div>
+            <div class="wire-nav"></div>
+          </div>
+          <div class="glass card compact">
+            <h3>Mobile hierarchy model</h3>
+            <ul class="rule-list">
+              <li><span class="dot">1</span><span><b>Status layer:</b> greeting, profile, notification, security, and current account context.</span></li>
+              <li><span class="dot">2</span><span><b>Primary value:</b> available limit, active balance, score, repayment amount, or application state.</span></li>
+              <li><span class="dot">3</span><span><b>Action layer:</b> one primary action, secondary tools, and clear route to detail.</span></li>
+              <li><span class="dot">4</span><span><b>Evidence layer:</b> score factors, terms, fees, due dates, progress, and explanations.</span></li>
+              <li><span class="dot">5</span><span><b>Navigation layer:</b> stable bottom nav with selected state and safe-area padding.</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">App use cases</p>
+            <h2>Interface patterns by screen type</h2>
+          </div>
+          <p>
+            These use cases define UI structure and interaction standards. They are not sales
+            claims. Use them when designing app flows, portal screens, or landing page modules.
+          </p>
+        </div>
+        <div class="grid-4">
+          <article class="glass card usecase-card">
+            <h3>Home dashboard</h3>
+            <p>One primary financial value, 2-3 quick actions, recent status, and a calm bottom nav.</p>
+            <div class="component-demo">
+              <span class="chip">Limit</span>
+              <span class="chip">Cards</span>
+            </div>
+          </article>
+          <article class="glass card usecase-card">
+            <h3>Credit score</h3>
+            <p>Score ring, category, trend, top factors, data source, and one suggested next action.</p>
+            <div class="component-demo">
+              <span class="chip">Score</span>
+              <span class="chip">Factors</span>
+            </div>
+          </article>
+          <article class="glass card usecase-card">
+            <h3>One-tap loan</h3>
+            <p>Amount selector, term, total cost, consent, confirmation, and success state.</p>
+            <div class="component-demo">
+              <span class="chip">Amount</span>
+              <span class="chip">Confirm</span>
+            </div>
+          </article>
+          <article class="glass card usecase-card">
+            <h3>BNPL checkout</h3>
+            <p>Merchant name, split schedule, first payment, late fee note, and clear approve/decline state.</p>
+            <div class="component-demo">
+              <span class="chip">Schedule</span>
+              <span class="chip">Merchant</span>
+            </div>
+          </article>
+          <article class="glass card usecase-card">
+            <h3>SME loan flow</h3>
+            <p>Business profile, documents, revenue signals, progress checklist, review timeline.</p>
+            <div class="component-demo">
+              <span class="chip">Docs</span>
+              <span class="chip">Progress</span>
+            </div>
+          </article>
+          <article class="glass card usecase-card">
+            <h3>Repayment</h3>
+            <p>Due amount, date, method, autopay state, receipt, and early repayment option.</p>
+            <div class="component-demo">
+              <span class="chip warning">Due</span>
+              <span class="chip success">Paid</span>
+            </div>
+          </article>
+          <article class="glass card usecase-card">
+            <h3>Onboarding / KYC</h3>
+            <p>Step count, permission explanation, document scan, verification, retry state.</p>
+            <div class="component-demo">
+              <span class="chip">Verify</span>
+              <span class="chip">Retry</span>
+            </div>
+          </article>
+          <article class="glass card usecase-card">
+            <h3>Empty and error</h3>
+            <p>Explain what happened, preserve trust, provide a next action, and avoid technical blame.</p>
+            <div class="component-demo">
+              <span class="chip danger">Error</span>
+              <span class="chip">Retry</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="motion">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Motion</p>
+            <h2>Animation standards</h2>
+          </div>
+          <p>
+            Motion should clarify hierarchy, make state changes understandable, and create a
+            premium sense of responsiveness. It must never create horizontal overflow or make CTAs
+            move constantly.
+          </p>
+        </div>
+        <div class="motion-strip">
+          <div class="motion-step">
+            <div class="motion-dot"></div>
+            <strong>Reveal</strong>
+            <p>Fade, 8-30px translate, 10-16px blur, 700-1000ms. Trigger on load and scroll.</p>
+          </div>
+          <div class="motion-step">
+            <div class="motion-dot"></div>
+            <strong>Signal</strong>
+            <p>Subtle glow, orbit, shimmer, or count-up only for intelligence and score modules.</p>
+          </div>
+          <div class="motion-step">
+            <div class="motion-dot"></div>
+            <strong>Interaction</strong>
+            <p>Buttons and controls respond with color, shadow, or scale below 1.02. No layout shift.</p>
+          </div>
+          <div class="motion-step">
+            <div class="motion-dot"></div>
+            <strong>Reduced motion</strong>
+            <p>Respect system preferences. Keep opacity changes and remove decorative movement.</p>
+          </div>
+        </div>
+        <div style="height: 18px"></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Motion type</th>
+                <th>Timing</th>
+                <th>Easing</th>
+                <th>Use</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Micro interaction</strong></td>
+                <td>160-220ms</td>
+                <td>ease-out</td>
+                <td>Button hover, chip select, toggle change.</td>
+              </tr>
+              <tr>
+                <td><strong>Screen reveal</strong></td>
+                <td>700-1000ms</td>
+                <td>cubic-bezier(.2,.8,.2,1)</td>
+                <td>Hero, sections, cards, phone mockups.</td>
+              </tr>
+              <tr>
+                <td><strong>Count-up</strong></td>
+                <td>900-1400ms</td>
+                <td>ease-out</td>
+                <td>Score, limit, portfolio metric after entering view.</td>
+              </tr>
+              <tr>
+                <td><strong>Ambient signal</strong></td>
+                <td>4-9s loop</td>
+                <td>linear or ease-in-out</td>
+                <td>Background shine only. Keep behind content and inside overflow-hidden bounds.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Imagery</p>
+            <h2>Screenshot and asset standards</h2>
+          </div>
+          <p>
+            Product visuals should reveal real interface detail. Avoid generic stock images,
+            excessive blur, dark unreadable crops, and mockups that hide the actual UI.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="glass card">
+            <h3>Phone framing</h3>
+            <p>Use top-centered crops. Show the status bar, first value, and first action. Avoid extreme tilt.</p>
+          </article>
+          <article class="glass card">
+            <h3>Light / dark pairing</h3>
+            <p>When a page supports theme switching, use the matching screenshot. Do not show dark UI in light mode.</p>
+          </article>
+          <article class="glass card">
+            <h3>Background media</h3>
+            <p>Use cyan-blue surfaces, real app screenshots, or generated abstract light fields with enough contrast.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="standards">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Accessibility</p>
+            <h2>Quality and usability standards</h2>
+          </div>
+          <p>
+            Premium UI is measured by clarity under pressure: readable terms, predictable controls,
+            visible state changes, and clear recovery when something fails.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="glass card">
+            <h3>Contrast</h3>
+            <p>Body text must remain readable over glass. Add scrims or stronger fills over imagery.</p>
+          </article>
+          <article class="glass card">
+            <h3>Touch</h3>
+            <p>Minimum 44px targets. Keep destructive actions away from primary confirmation controls.</p>
+          </article>
+          <article class="glass card">
+            <h3>Focus</h3>
+            <p>Keyboard focus must be visible on links, buttons, fields, segmented controls, and cards.</p>
+          </article>
+          <article class="glass card">
+            <h3>Financial clarity</h3>
+            <p>Fees, repayment schedules, consent, and score explanations must be visible before confirmation.</p>
+          </article>
+          <article class="glass card">
+            <h3>Language</h3>
+            <p>Use short labels, sentence case, plain error messages, and direct next actions.</p>
+          </article>
+          <article class="glass card">
+            <h3>Resilience</h3>
+            <p>Every flow needs loading, empty, offline, pending, success, warning, and error states.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Implementation tokens</p>
+            <h2>Developer handoff rules</h2>
+          </div>
+          <p>
+            Use shared tokens before inventing values. One-off colors, shadows, gradients, radii,
+            and animations must be documented and reviewed.
+          </p>
+        </div>
+        <div class="grid-4">
+          <div class="spec">
+            <strong>Spacing</strong>
+            <p><code>4</code> <code>8</code> <code>12</code> <code>16</code> <code>24</code> <code>32</code> <code>48</code> <code>80</code></p>
+          </div>
+          <div class="spec">
+            <strong>Radius</strong>
+            <p><code>14</code> <code>18</code> <code>22</code> <code>30</code> <code>34</code> <code>999</code></p>
+          </div>
+          <div class="spec">
+            <strong>Blur</strong>
+            <p><code>18px</code> <code>22px</code> <code>28px</code></p>
+          </div>
+          <div class="spec">
+            <strong>Timing</strong>
+            <p><code>180ms</code> <code>420ms</code> <code>820ms</code> <code>980ms</code></p>
+          </div>
+        </div>
+        <div style="height: 18px"></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Token group</th>
+                <th>Primary tokens</th>
+                <th>Usage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Color</strong></td>
+                <td><code>--cyan</code> <code>--blue</code> <code>--navy</code> <code>--gold</code></td>
+                <td>Brand surfaces, states, gradients, focus, premium accent.</td>
+              </tr>
+              <tr>
+                <td><strong>Material</strong></td>
+                <td><code>--glass</code> <code>--shadow</code> <code>--line</code></td>
+                <td>Cards, nav, phone frames, bottom sheets, modal overlays.</td>
+              </tr>
+              <tr>
+                <td><strong>Type</strong></td>
+                <td><code>--font</code> <code>tabular-nums</code></td>
+                <td>Native display, body text, monetary values, score and metric counters.</td>
+              </tr>
+              <tr>
+                <td><strong>Motion</strong></td>
+                <td><code>ease-out</code> <code>cubic-bezier(.2,.8,.2,1)</code></td>
+                <td>Reveal, micro interaction, score count-up, safe ambient signal.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Design QA</p>
+            <h2>Release checklist</h2>
+          </div>
+          <p>
+            Check every page, screen, and component against this list before delivery.
+          </p>
+        </div>
+        <div class="glass card compact">
+          <ul class="qa-list">
+            <li>Text does not overlap at 320px, 390px, tablet, and desktop widths.</li>
+            <li>No animated element changes document width or creates horizontal scroll.</li>
+            <li>Light and dark modes both use the correct screenshot and contrast.</li>
+            <li>Primary action is visually clear and does not move constantly.</li>
+            <li>Financial values use tabular numerals when they animate or compare.</li>
+            <li>Glass surfaces have enough border and fill contrast against their background.</li>
+            <li>Icons match a consistent stroke style and do not replace critical labels.</li>
+            <li>Loading, empty, success, warning, error, offline, and pending states are designed.</li>
+            <li>Reduced motion mode remains usable and polished.</li>
+            <li>Every financial decision screen explains the next action before commitment.</li>
+            <li>Tablet layouts are reviewed separately, not treated as stretched desktop.</li>
+            <li>Legal, fee, repayment, and consent text stays readable over non-glass surfaces.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer page">
+      <strong>BZR Capital Design Manual v1.0</strong>
+      <p>
+        A design-focused brandbook for visual identity, UI/UX foundations, liquid glass materials,
+        components, mobile app patterns, motion, accessibility, and implementation standards.
+      </p>
+    </footer>
+  </body>
+</html>
