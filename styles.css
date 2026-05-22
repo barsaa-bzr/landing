@@ -629,7 +629,9 @@ h1 {
   width: min(32vw, 460px);
   min-width: 340px;
   aspect-ratio: 0.76;
-  pointer-events: none;
+  pointer-events: auto;
+  perspective: 900px;
+  cursor: default;
 }
 
 .phone-shell {
@@ -645,7 +647,8 @@ h1 {
   transform-style: preserve-3d;
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  transition: transform 420ms var(--ease-glass);
+  transition: transform 500ms var(--ease-glass), box-shadow 500ms ease;
+  will-change: transform;
 }
 
 .phone-glass {
@@ -866,7 +869,9 @@ html[data-theme="dark"] .app-shot-dark {
   padding: 14px 16px;
   border-radius: 22px;
   color: rgba(7, 17, 22, 0.88);
-  transform: rotate(-8deg);
+  transform: rotate(-8deg) translate(var(--card-tx, 0px), var(--card-ty, 0px));
+  transition: transform 220ms ease-out;
+  will-change: transform;
 }
 
 .floating-card strong {

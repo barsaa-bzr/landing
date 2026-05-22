@@ -201,24 +201,40 @@ const registerScoreCounters = () => {
 registerScoreCounters();
 
 if (tiltTarget) {
-  window.addEventListener(
+  const heroVisual = tiltTarget.closest(".hero-visual");
+  const floatingCards = document.querySelectorAll(".floating-card");
+  const isMobile = () => window.matchMedia("(max-width: 980px)").matches;
+
+  heroVisual?.addEventListener(
     "pointermove",
     (event) => {
-      if (window.matchMedia("(max-width: 980px)").matches) return;
+      if (isMobile() || prefersReducedMotion.matches) return;
 
-      const rect = tiltTarget.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const rotateX = ((event.clientY - centerY) / rect.height) * -4;
-      const rotateY = ((event.clientX - centerX) / rect.width) * 5;
+      const rect = heroVisual.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
 
-      tiltTarget.style.transform = `rotate(-8deg) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      const rotateX = y * -12;
+      const rotateY = x * 16;
+
+      tiltTarget.style.transition = "transform 80ms ease-out, box-shadow 80ms ease";
+      tiltTarget.style.transform = `rotate(-8deg) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(0.97)`;
+
+      floatingCards.forEach((card) => {
+        card.style.setProperty("--card-tx", `${x * -14}px`);
+        card.style.setProperty("--card-ty", `${y * -10}px`);
+      });
     },
     { passive: true },
   );
 
-  window.addEventListener("pointerleave", () => {
+  heroVisual?.addEventListener("pointerleave", () => {
+    tiltTarget.style.transition = "";
     tiltTarget.style.transform = "rotate(-8deg)";
+    floatingCards.forEach((card) => {
+      card.style.removeProperty("--card-tx");
+      card.style.removeProperty("--card-ty");
+    });
   });
 }
 
