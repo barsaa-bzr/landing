@@ -2,10 +2,50 @@ const header = document.querySelector(".site-header");
 const tiltTarget = document.querySelector("[data-tilt]");
 const waitlistForm = document.querySelector("#waitlist-form");
 const formNote = document.querySelector(".form-note");
+const themeToggle = document.querySelector(".theme-toggle");
 const root = document.documentElement;
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
 let scrollTicking = false;
+
+const getSavedTheme = () => {
+  try {
+    return localStorage.getItem("bzr-theme");
+  } catch {
+    return null;
+  }
+};
+
+const setTheme = (theme, shouldPersist = true) => {
+  const nextTheme = theme === "dark" ? "dark" : "light";
+
+  root.dataset.theme = nextTheme;
+  themeToggle?.setAttribute("aria-pressed", String(nextTheme === "dark"));
+  themeToggle?.setAttribute(
+    "aria-label",
+    nextTheme === "dark" ? "Switch to light mode" : "Switch to dark mode",
+  );
+
+  if (!shouldPersist) return;
+
+  try {
+    localStorage.setItem("bzr-theme", nextTheme);
+  } catch {
+    // Theme persistence is optional.
+  }
+};
+
+setTheme(root.dataset.theme || (prefersDarkScheme.matches ? "dark" : "light"), false);
+
+themeToggle?.addEventListener("click", () => {
+  setTheme(root.dataset.theme === "dark" ? "light" : "dark");
+});
+
+prefersDarkScheme.addEventListener?.("change", (event) => {
+  if (getSavedTheme()) return;
+  setTheme(event.matches ? "dark" : "light", false);
+});
 
 const syncScrollState = () => {
   header?.classList.toggle("is-scrolled", window.scrollY > 12);

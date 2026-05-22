@@ -9,6 +9,17 @@
       content="BZR Capital is building a next-generation Mongolian fintech platform for one-tap loans, BNPL, SME financing, and AI-powered credit scoring."
     />
     <link rel="icon" href="assets/logo.png" type="image/png" />
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("bzr-theme");
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -29,7 +40,18 @@
         <a href="#intelligence">AI Scoring</a>
         <a href="#platform">Technology</a>
       </nav>
-      <a class="nav-cta" href="#waitlist">Early Access</a>
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 4V2m0 20v-2m8-8h2M2 12h2m14.95-6.95 1.41-1.41M3.64 20.36l1.41-1.41m0-13.9L3.64 3.64m16.72 16.72-1.41-1.41" />
+            <circle cx="12" cy="12" r="4" />
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 15.6A8.5 8.5 0 0 1 8.4 4 7 7 0 1 0 20 15.6Z" />
+          </svg>
+        </button>
+        <a class="nav-cta" href="#waitlist">Early Access</a>
+      </div>
     </header>
 
     <main id="top">
@@ -59,60 +81,14 @@
           <div class="phone-shell" data-tilt>
             <div class="phone-glass"></div>
             <div class="phone-screen">
-              <div class="dynamic-island"></div>
-              <div class="app-topline">
-                <span>9:41</span>
-                <span>5G&nbsp;&nbsp;100%</span>
-              </div>
-              <div class="app-greeting">
-                <img src="assets/logo.png" alt="" />
-                <div>
-                  <span>Your credit companion</span>
-                  <strong>Sain baina uu, Bolor</strong>
-                </div>
-              </div>
-              <div class="limit-panel">
-                <span>Available limit</span>
-                <strong>₮ 5,000,000</strong>
-                <div class="limit-meter">
-                  <span></span>
-                </div>
-              </div>
-              <div class="score-orb">
-                <span>AI Score</span>
-                <strong>742</strong>
-              </div>
-              <div class="quick-actions">
-                <article>
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="m13 2-9 12h7l-1 8 10-13h-7l0-7Z" />
-                  </svg>
-                  <strong>One-Tap Loan</strong>
-                  <span>Decision in minutes</span>
-                </article>
-                <article>
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 7h16v10H4zM4 10h16M8 15h3" />
-                  </svg>
-                  <strong>BNPL</strong>
-                  <span>Split purchases</span>
-                </article>
-              </div>
-              <div class="sme-strip">
-                <div>
-                  <span>SME credit line</span>
-                  <strong>₮ 40M prequalified</strong>
-                </div>
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-7h6v7" />
-                </svg>
-              </div>
+              <img class="app-shot app-shot-light" src="assets/ss_light.png" alt="" />
+              <img class="app-shot app-shot-dark" src="assets/ss_dark.png" alt="" />
             </div>
           </div>
           <div class="floating-card floating-card-top">
             <span class="pulse"></span>
             <div>
-              <strong>90 sec</strong>
+              <strong class="floating-card-title">90 sec</strong>
               <small>model response</small>
             </div>
           </div>
